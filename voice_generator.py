@@ -13,7 +13,7 @@ def remove_custom_emoji(inputText):
 # URLなら省略
 def urlAbb(inputText):
     pattern = "https?://[\w/:%#\$&\?\(\)~\.=\+\-]+"
-    return re.sub(pattern,'URLは省略するのデス！',inputText)   # 置換処理
+    return re.sub(pattern,'URLは省略します',inputText)   # 置換処理
 
 def blackListWord(inputText):
     pattern = "アレクサ"
@@ -22,18 +22,32 @@ def blackListWord(inputText):
     inputText = re.sub(pattern,'',inputText)   # 置換処理
     return inputText
 
-    #inputText.encode('shift_jis')
-    #inputText = inputText.replace('アレクサ', '', regex=True)
-    #inputText = inputText.replace('あれくさ', '', regex=True)
-    #return inputText
+def remove_command(inputText):
+    pattern = r'^\/.*'
+    return re.sub(pattern,'',inputText)   # 置換処理
 
-# creat_WAV
+def user_custam(inputText):
+    f = open('./text/dic.txt', 'r')
+    lines = f.readlines()
+
+    for line in lines:
+        pattern = line.strip().split(',')
+        if pattern[0] in inputText:
+            inputText = inputText.replace(pattern[0], pattern[1])
+            print('置換後のtext:'+inputText)
+            break
+        else:
+            line = f.readline()
+    return inputText
+
 # message.contentをテキストファイルに書き込み
-def creat_sound(projectMainPath,inputText):
+def creat_sound(inputText):
     # message.contentをテキストファイルに書き込み
     inputText = remove_custom_emoji(inputText)   # 絵文字IDは読み上げない
     inputText = urlAbb(inputText)   # URLなら省略
-    inputText = blackListWord(inputText)   # URLなら省略
+    inputText = blackListWord(inputText)   # 禁止単語を省略
+    inputText = remove_command(inputText)   # コマンドを省略
+    inputText = user_custam(inputText)   # コマンドを省略
 
     tts = gTTS(text=inputText, lang='ja')
     tts.save('./output.mp3')
