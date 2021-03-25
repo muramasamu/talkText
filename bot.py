@@ -123,13 +123,13 @@ async def on_message(message):
     if message.author.bot:
         return
     # 「/neko」と発言したら「にゃーん」が返る処理
-    if message.content == '/neko':
+    if message.content == '>neko':
         await message.channel.send('にゃーん')
     # 「/inu」と発言したら「わん」が返る処理
-    if message.content == '/inu':
+    if message.content == '>inu':
         await message.channel.send('わん')
 
-    if message.content.startswith('/'):
+    if message.content.startswith('>'):
         pass
 
     else:
