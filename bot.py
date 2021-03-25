@@ -14,7 +14,7 @@ from voice_generator import creat_sound
 TOKEN = os.environ['TOKEN']
 
 # 接続に必要なオブジェクトを生成
-client = commands.Bot(command_prefix='/')
+client = commands.Bot(command_prefix='>')
 client.remove_command("help")
 
 # 作業ディレクトリをbot.pyが置いてあるディレクトリに変更
@@ -28,7 +28,7 @@ user_dic = []
 async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
     print('ログインしました')
-    activity = discord.Activity(name='/help', type=discord.ActivityType.playing)
+    activity = discord.Activity(name='>help', type=discord.ActivityType.playing)
     await client.change_presence(activity=activity)
 
 @client.command()
