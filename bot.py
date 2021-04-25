@@ -12,7 +12,7 @@ from discord.ext import commands
 from voice_generator import creat_sound
 
 # 自分のBotのアクセストークン
-TOKEN1 = os.environ['TOKEN']
+TOKEN = os.environ['TOKEN']
 TOKEN1 = os.environ['TOKEN1']
 TOKEN2 = os.environ['TOKEN2']
 
