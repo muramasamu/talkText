@@ -2,6 +2,7 @@
 import asyncio
 import os
 import subprocess
+from threading import Thread
 
 import ffmpeg
 import discord
@@ -11,7 +12,8 @@ from discord.ext import commands
 from voice_generator import creat_sound
 
 # 自分のBotのアクセストークン
-TOKEN = os.environ['TOKEN']
+TOKEN1 = os.environ['TOKEN1']
+TOKEN2 = os.environ['TOKEN2']
 
 # 接続に必要なオブジェクトを生成
 client = commands.Bot(command_prefix='>')
@@ -145,4 +147,10 @@ async def on_message(message):
     await client.process_commands(message)
 
 # Botの起動とDiscordサーバーへの接続
-client.run(TOKEN)
+#client.run(TOKEN)
+
+job = Thread(target=client.run, args=(TOKEN1,))
+job.start()
+
+job = Thread(target=client.run, args=(TOKEN2,))
+job.start()
