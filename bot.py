@@ -12,6 +12,7 @@ from discord.ext import commands
 from voice_generator import creat_sound
 
 # 自分のBotのアクセストークン
+TOKEN1 = os.environ['TOKEN']
 TOKEN1 = os.environ['TOKEN1']
 TOKEN2 = os.environ['TOKEN2']
 
@@ -147,10 +148,10 @@ async def on_message(message):
     await client.process_commands(message)
 
 # Botの起動とDiscordサーバーへの接続
-#client.run(TOKEN)
+client.run(TOKEN)
 
-job = Thread(target=client.run, args=(TOKEN1,))
-job.start()
-
-job = Thread(target=client.run, args=(TOKEN2,))
-job.start()
+##job = Thread(target=client.run, args=(TOKEN1,))
+##job.start()
+##
+##job = Thread(target=client.run, args=(TOKEN2,))
+##job.start()
