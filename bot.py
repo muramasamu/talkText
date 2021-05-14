@@ -20,6 +20,10 @@ TOKEN2 = os.environ['TOKEN2']
 client = commands.Bot(command_prefix='>')
 client.remove_command("help")
 
+#フラグ
+readname_flg = True
+readmention_flg = False
+
 # 作業ディレクトリをbot.pyが置いてあるディレクトリに変更
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -119,6 +123,24 @@ async def rmw(message, arg1):
     else:
         await message.channel.send('`' + arg1+'` は辞書に登録されていません')
 
+@client.command()
+async def readname(message, arg):
+    if arg == 'on'
+        readname_flg = True
+    else if arg == 'off'
+        readname_flg = False
+    else
+        pass
+
+@client.command()
+async def readmention(message, arg):
+    if arg == 'on'
+        readmention_flg = True
+    else if arg == 'off'
+        readmention_flg = False
+    else
+        pass
+
 # メッセージ受信時に動作する処理
 @client.event
 async def on_message(message):
@@ -137,10 +159,16 @@ async def on_message(message):
 
     else:
         if message.guild.voice_client:
-            print(message.content)
-            inputText = message.clean_content
+            inputText = ''
+            if readname_flg :
+                user = client.get_user(message.author.id) + ' '
+                inputText = user
+            inputText = inputText + message.clean_content
+            if !readmention_flg :
+                pattern = "<@/!.*>"
+                inputText = re.sub(pattern,'',inputText)
             print(inputText)
-            creat_sound(inputText)
+            creat_sound(inputText,)
             source = discord.FFmpegPCMAudio("output.mp3",options="-af atempo=1.5")
             message.guild.voice_client.play(source)
         else:
@@ -149,9 +177,3 @@ async def on_message(message):
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
-
-##job = Thread(target=client.run, args=(TOKEN1,))
-##job.start()
-##
-##job = Thread(target=client.run, args=(TOKEN2,))
-##job.start()
