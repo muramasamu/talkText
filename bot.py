@@ -127,18 +127,18 @@ async def rmw(message, arg1):
 async def readname(message, arg):
     if arg == 'on':
         readname_flg = True
-    else if arg == 'off':
+    elif arg == 'off':
         readname_flg = False
-    else
+    else:
         pass
 
 @client.command()
 async def readmention(message, arg):
     if arg == 'on':
         readmention_flg = True
-    else if arg == 'off':
+    elif arg == 'off':
         readmention_flg = False
-    else
+    else:
         pass
 
 # メッセージ受信時に動作する処理
@@ -164,7 +164,7 @@ async def on_message(message):
                 user = client.get_user(message.author.id) + ' '
                 inputText = user
             inputText = inputText + message.clean_content
-            if !readmention_flg :
+            if not readmention_flg :
                 pattern = "<@/!.*>"
                 inputText = re.sub(pattern,'',inputText)
             print(inputText)
