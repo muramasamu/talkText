@@ -125,18 +125,18 @@ async def rmw(message, arg1):
 
 @client.command()
 async def readname(message, arg):
-    if arg == 'on'
+    if arg == 'on':
         readname_flg = True
-    else if arg == 'off'
+    else if arg == 'off':
         readname_flg = False
     else
         pass
 
 @client.command()
 async def readmention(message, arg):
-    if arg == 'on'
+    if arg == 'on':
         readmention_flg = True
-    else if arg == 'off'
+    else if arg == 'off':
         readmention_flg = False
     else
         pass
