@@ -2,6 +2,8 @@
 import asyncio
 import os
 import subprocess
+import re
+
 from threading import Thread
 
 import ffmpeg
@@ -161,14 +163,14 @@ async def on_message(message):
         if message.guild.voice_client:
             inputText = ''
             if readname_flg :
-                user = client.get_user(message.author.id) + ' '
+                user = client.get_user(message.author.id).display_name + ' '
                 inputText = user
             inputText = inputText + message.clean_content
             if not readmention_flg :
                 pattern = "<@/!.*>"
                 inputText = re.sub(pattern,'',inputText)
             print(inputText)
-            creat_sound(inputText,)
+            creat_sound(inputText)
             source = discord.FFmpegPCMAudio("output.mp3",options="-af atempo=1.5")
             message.guild.voice_client.play(source)
         else:
