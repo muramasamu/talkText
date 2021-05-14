@@ -169,6 +169,8 @@ async def on_message(message):
             if not readmention_flg :
                 pattern = "<@/!.*>"
                 inputText = re.sub(pattern,'',inputText)
+                pattern = "@.* "
+                inputText = re.sub(pattern,'',inputText)
             print(inputText)
             creat_sound(inputText)
             source = discord.FFmpegPCMAudio("output.mp3",options="-af atempo=1.5")
