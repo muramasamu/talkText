@@ -73,6 +73,11 @@ async def dic(message):
         await message.channel.send('辞書データがありません')
 
 @client.command()
+async def stat(message):
+    await message.channel.send("readname_flg=" + flg.readname_flg)
+    await message.channel.send("readmention_flg=" + flg.readmention_flg)
+
+@client.command()
 async def addw(message, arg1, arg2):
     #既に登録されていないか確認
 
