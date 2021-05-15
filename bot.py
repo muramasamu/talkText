@@ -12,7 +12,7 @@ from playsound import playsound
 from discord.ext import commands
 
 from voice_generator import creat_sound
-from flg_manage
+import flg_manage
 
 # 自分のBotのアクセストークン
 TOKEN = os.environ['TOKEN']
