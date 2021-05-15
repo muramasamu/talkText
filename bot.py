@@ -12,6 +12,7 @@ from playsound import playsound
 from discord.ext import commands
 
 from voice_generator import creat_sound
+from flg_manage
 
 # 自分のBotのアクセストークン
 TOKEN = os.environ['TOKEN']
@@ -23,8 +24,9 @@ client = commands.Bot(command_prefix='>')
 client.remove_command("help")
 
 #フラグ
-readname_flg = True
-readmention_flg = False
+# readname_flg = True
+# readmention_flg = False
+flg = flg_manage.flg_manage()
 
 # 作業ディレクトリをbot.pyが置いてあるディレクトリに変更
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -128,18 +130,22 @@ async def rmw(message, arg1):
 @client.command()
 async def readname(message, arg):
     if arg == 'on':
-        readname_flg = True
+        flg.readname_flg = True
+        await message.channel.send('readnameをONにしました')
     elif arg == 'off':
-        readname_flg = False
+        flg.readname_flg = False
+        await message.channel.send('readnameをOFFにしました')
     else:
         pass
 
 @client.command()
 async def readmention(message, arg):
     if arg == 'on':
-        readmention_flg = True
+        flg.readmention_flg = True
+        await message.channel.send('readmentionをONにしました')
     elif arg == 'off':
-        readmention_flg = False
+        flg.readmention_flg = False
+        await message.channel.send('readmentionをOFFにしました')
     else:
         pass
 
@@ -162,11 +168,11 @@ async def on_message(message):
     else:
         if message.guild.voice_client:
             inputText = ''
-            if readname_flg :
+            if flg.readname_flg :
                 user = client.get_user(message.author.id).display_name + ' '
                 inputText = user
             inputText = inputText + message.clean_content
-            if not readmention_flg :
+            if not flg.readmention_flg :
                 pattern = "<@/!.*>"
                 inputText = re.sub(pattern,'',inputText)
                 pattern = "@.* "
